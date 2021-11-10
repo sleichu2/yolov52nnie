@@ -260,16 +260,18 @@ def _convert_Permute(node, graph, err):
     node_name = node.name
     input_name = str(node.inputs[0])
     output_name = str(node.outputs[0])
-    if len(node.inputs) == 1:
-        shape = tuple(node.attrs.get('perm', ()))
-    else:
-        shape = tuple(node.input_tensors[node.inputs[1]])
-
-    if len(shape) == 3 or len(shape) == 4 or len(shape) == 5:
-        layer = myf("Permute", node_name, [input_name], [output_name], permute_param=dict(order=list(shape)))
-        return layer
-    else:
-        return err.unsupported_op_configuration(node, "Reshape dimention number shall be 2 or 4")
+    layer = myf("Dropout", node_name, [input_name], [output_name], dropout_ratio=0)
+    return layer
+    # if len(node.inputs) == 1:
+    #     shape = tuple(node.attrs.get('perm', ()))
+    # else:
+    #     shape = tuple(node.input_tensors[node.inputs[1]])
+    #
+    # if len(shape) == 3 or len(shape) == 4 or len(shape) == 5:
+    #     layer = myf("Permute", node_name, [input_name], [output_name], permute_param=dict(order=list(shape)))
+    #     return layer
+    # else:
+    #     return err.unsupported_op_configuration(node, "Reshape dimention number shall be 2 or 4")
 
 def _convert_Softmax(node, graph, err):
     node_name = node.name

@@ -26,7 +26,8 @@ def assign_proto(proto, name, val):
     lists; e.g., `my_repeated_int_field=3` is converted to
     `my_repeated_int_field=[3]`."""
 
-    is_repeated_field = hasattr(getattr(proto, name), 'extend')
+    att = getattr(proto, name)
+    is_repeated_field = hasattr(att, 'extend')
     if is_repeated_field and not isinstance(val, list):
         val = [val]
     if isinstance(val, list):
@@ -83,6 +84,7 @@ class Function(object):
             bottom_names.append(inp)
         layer = caffe_pb2.LayerParameter()
         layer.type = self.type_name
+        print(self.type_name)
         layer.bottom.extend(bottom_names)
 
         if self.in_place:
@@ -92,6 +94,9 @@ class Function(object):
                 layer.top.append(top)
         layer.name = self.layer_name
         # print(self.type_name + "...")
+        if self.type_name == 'Permute':
+            print('1111')
+            return layer
         for k, v in six.iteritems(self.params):
             # special case to handle generic *params
             # print("generating "+k+"...")

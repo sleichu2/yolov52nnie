@@ -7,7 +7,7 @@ from caffe.proto import caffe_pb2
 import onnx
 
 caffe.set_mode_cpu()
-sys.path.append('../')
+sys.path.append('../onnx2caffe/')
 from onnx2caffe._transformers import ConvAddFuser, ConstantsToInitializers
 from onnx2caffe._graph import Graph
 
@@ -146,9 +146,9 @@ def getGraph(onnx_path):
 
 if __name__ == "__main__":
 
-    onnx_path = "/home/willer/yolov5-4.0/models/models_not_focus/yolov5s-simple.onnx"
-    prototxt_path = "./yolov5s-4.0-not-focus.prototxt"
-    caffemodel_path = "./yolov5s-4.0-not-focus.caffemodel"
+    onnx_path = "weights/best-ds.onnx"
+    prototxt_path = "weights/best-ds.prototxt"
+    caffemodel_path = "weights/best-ds.caffemodel"
 
     #onnx_path = "/home/willer/nanodet_concat/tools/nanodet-simple.onnx"
     #prototxt_path = "./nanodet-simple.prototxt"
@@ -156,8 +156,8 @@ if __name__ == "__main__":
 
     graph = getGraph(onnx_path)
 
-    convertToCaffe(graph, prototxt_path, caffemodel_path, exis_focus=True, focus_concat_name="Concat_40", focus_conv_name="Conv_41")
-    #convertToCaffe(graph, prototxt_path, caffemodel_path, exis_focus=True, focus_concat_name="Concat_40")
-    #convertToCaffe(graph, prototxt_path, caffemodel_path, focus_conv_name="Conv_41")
-    #convertToCaffe(graph, prototxt_path, caffemodel_path)
+    # convertToCaffe(graph, prototxt_path, caffemodel_path, exis_focus=True, focus_concat_name="Concat_40", focus_conv_name="Conv_41")
+    # #convertToCaffe(graph, prototxt_path, caffemodel_path, exis_focus=True, focus_concat_name="Concat_40")
+    # #convertToCaffe(graph, prototxt_path, caffemodel_path, focus_conv_name="Conv_41")4
+    convertToCaffe(graph, prototxt_path, caffemodel_path)
 
