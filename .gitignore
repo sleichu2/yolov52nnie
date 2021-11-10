@@ -1,4 +1,8 @@
 weights
 teacher
 student
-yo*
+yolov5s-3.1-focus.prototxt
+yolov5s-4.0-10op.caffemodel
+yolov5s-4.0-10op.prototxt
+yolov5s-4.0-focus.caffemodel
+y
